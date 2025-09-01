@@ -32,6 +32,6 @@ def newton_method(f: callable, x0: float, tol: float = 1e-7, max_iter: int = 100
 
 a = float(input("Enter initial guess x0: "))
 tol = float(input("Enter tolerance (e.g., 1e-6): "))
-f = lambda x: x**3 - 9*x + 3  # Example function, replace with your own
+f = lambda x: x**2 - 7  # Example function, replace with your own
 
 print(f"Newton's method root: {newton_method(f, a, tol)}")
