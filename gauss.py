@@ -1,3 +1,18 @@
+def remove_float_point(num: float, tolerance: float = 1e-4) -> float:
+	"""
+	Remove floating point inaccuracies by rounding to the nearest integer if within a specified tolerance.
+
+	Parameters:
+	num (float): The number to be processed.
+	tolerance (float): The tolerance level for rounding.
+
+	Returns:
+	float: The processed number, rounded if within tolerance.
+	"""
+	if abs(num - round(num)) < tolerance:
+		return round(num)
+	return num
+
 def gauss_method(fs: list):
 	"""
 	Solve a system of linear equations using Gaussian elimination.
@@ -11,35 +26,29 @@ def gauss_method(fs: list):
 	list: Solution vector.
 	"""
 
-	lenA = len(fs) -1
-
-	for i in range(lenA):
-		for j in range(i+1, lenA+1):
-			m = fs[j][i]/fs[i][i]
-
-			for k in range(i, lenA+1):
-				fs[j][k] -= m*fs[i][k]
-
-			fs[j][-1] -= m*fs[i][-1]
-
-	for i in range(lenA+1):
-		for j in range(lenA+2):
-			fs[i][j] = round(fs[i][j], 4)
-					
-	res = [0]*(lenA+1)
-	res[-1] = fs[-1][-1]/fs[-1][-2]
-
-	for i in range(lenA, -1, -1):
-		soma = 0
-		for j in range(i+1, lenA+1):
-			soma += fs[i][j]*res[j]
-
-		res[i] = (fs[i][-1] - soma)/fs[i][i]
-
-	for i in range(lenA+1):
-		res[i] = round(res[i], 2)
+	matrixA = [row[:-1] for row in fs]
+	listB = [row[-1] for row in fs]
 	
-	return res
+	rows = len(matrixA)
+	cols = len(matrixA[0])
 
-print(gauss_method([[3,2,1,5],[1,1,2,3],[2,3,-2,-1]]))
+	for i in range(rows):
+		pivot = matrixA[i][i]
+		for j in range(i + 1, rows):
+			m = remove_float_point(matrixA[j][i] / pivot)
+			listB[j] = remove_float_point(listB[j] - m * listB[i])
 
+			for k in range(i, cols):
+				matrixA[j][k] = remove_float_point(matrixA[j][k] - m * matrixA[i][k])
+
+	results = listB[:]
+
+	for i in range(rows-1, -1, -1):
+		for j in range(i + 1, rows):
+			results[i] = remove_float_point(results[i] - matrixA[i][j] * results[j])
+		results[i] = remove_float_point(results[i] / matrixA[i][i])
+
+	return results
+
+
+print(gauss_method([[3,2,4,1],[1,1,2,2],[4,3,-2,3]]))
