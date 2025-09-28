@@ -36,7 +36,11 @@ def jacobi_method(fs: list, max_iterations: int = 100, tolerance: float = 1e-4):
 
 	vector = [0 for _ in range(rows)]
 
-	for _ in range(max_iterations):
+	_ = 0
+	while True:
+		if _ >= max_iterations:
+			return [remove_float_point(val) for val in new_vector]
+
 		new_vector = vector.copy()
 		for i in range(rows):
 			sum_ax = listB[i]
@@ -45,9 +49,12 @@ def jacobi_method(fs: list, max_iterations: int = 100, tolerance: float = 1e-4):
 					sum_ax -= matrixA[i][j] * vector[j]
 			new_vector[i] = sum_ax / matrixA[i][i]
 
-		if max((new_vector[i] - vector[i]) for i in range(rows)) < tolerance:
+		if max(abs(new_vector[i] - vector[i]) for i in range(rows)) < tolerance:
 			return [remove_float_point(val) for val in new_vector]
 
 		vector = new_vector
+		_ += 1
 
-print(jacobi_method([[3,2,4,1],[1,1,2,2],[4,3,-2,3]]))
+print(jacobi_method([[5,-1,2,2,3],[2,-4,1,-1,-2],[1,2,4,1,6],[-1,1,2,6,4]]))
+#print(jacobi_method([[3,2,1,5],[1,1,2,3],[2,3,-2,-1]])) #<- Não converge
+#print(jacobi_method([[1,1,3],[1,-3,-3]]))
