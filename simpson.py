@@ -25,11 +25,8 @@ def simpson_method(f: callable, a: float, b: float, n: int) -> float:
     h = (b - a) / n
     integral = f(a) + f(b)
 
-    for i in range(1, n, 2):
-        integral += 4 * f(a + i * h)
-
-    for i in range(2, n - 1, 2):
-        integral += 2 * f(a + i * h)
+    for i in range(1, n):
+        integral += 4 * f(a + i * h) if i % 2 == 1 else 2 * f(a + i * h)
 
     return integral * (h / 3)
 
