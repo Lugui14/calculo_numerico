@@ -6,7 +6,7 @@ def least_squares(point_list : list[tuple[float, float]]) -> callable:
 	line, by the function f(x) = a + b*x, which can then be evaluated at any point x.
 
 	Args:
-		points: A list of tuples with the coordinates (x, y) of the points.
+		point_list: A list of tuples with the coordinates (x, y) of the points.
 
 	Returns:
 		A function that represents the line function: f(x) = a + b*x.

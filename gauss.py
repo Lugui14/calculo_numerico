@@ -50,5 +50,5 @@ def gauss_method(fs: list):
 
 	return results
 
-
-print(gauss_method([[3,2,4,1],[1,1,2,2],[4,3,-2,3]]))
+if __name__ == '__main__':
+    print(gauss_method([[3,2,4,1],[1,1,2,2],[4,3,-2,3]]))
