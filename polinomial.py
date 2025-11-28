@@ -12,7 +12,7 @@ def matrix_mult(A, B):
         C.append(temp)
     return C
 
-def mult_linear(point_list : list[list[float]]) -> callable:
+def polinomial(point_list : list[list[float]], degree) -> callable:
     """
     Fiquei com preguiça de escrever a descrição
     """
@@ -24,11 +24,11 @@ def mult_linear(point_list : list[list[float]]) -> callable:
 
     for i in range(row):
         aux = [1]
-        for j in range(col):
-            aux.append(point_list[i][j])
+        for j in range(degree):
+            aux.append(point_list[i][0]**(j+1))
         matrix_x.append(aux)
-    
-    for i in range(col+1):
+
+    for i in range(degree+1):
         aux = []
         for j in range(row):
             aux.append(matrix_x[j][i])
@@ -50,9 +50,9 @@ def mult_linear(point_list : list[list[float]]) -> callable:
 
     b_values = seidel_method(new_matrix)
     #print(b_values)
-    return lambda *args: b_values[0] + sum(
-        b_values[i+1] * args[i] for i in range(len(args))
+    return lambda x: b_values[0] + sum(
+        b_values[i+1] * x**i for i in range(len(b_values))
     )
 
-lista = [[-1,-2,13],[0,-1,11],[1,0,9],[2,1,4],[4,1,11],[5,2,9],[5,3,1],[6,4,-1]]
-mult_linear(lista)
+lista = [[-2,-30.5],[-1.5,-20.2],[0,-3.3],[1,8.9],[2.2,16.8],[3.1,21.4]]
+polinomial(lista,2)

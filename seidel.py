@@ -50,4 +50,7 @@ def seidel_method(fs: list, max_iterations: int = 100, tolerance: float = 1e-4):
 
 		vector = new_vector
 
-print(seidel_method([[3,2,4,1],[1,1,2,2],[4,3,-2,3]]))
+	return vector
+
+if __name__ == '__main__':
+    print(seidel_method([[3,2,4,1],[1,1,2,2],[4,3,-2,3]]))
