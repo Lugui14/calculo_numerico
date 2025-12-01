@@ -1,4 +1,6 @@
-def euler_method(function: callable, first_value: tuple[float, float], iterations: int, domain: tuple[float, float]) -> list[tuple[float, float]]:
+def euler_method(
+    function: callable, first_value: tuple[float, float], iterations: int, domain: tuple[float, float]
+) -> list[tuple[float, float]]:
     """
     Approximates the solution of a first-order ordinary differential equation
     using Euler's numerical method.
@@ -17,19 +19,20 @@ def euler_method(function: callable, first_value: tuple[float, float], iteration
         A list of (x, y) tuples representing the approximate solution at each step.
     """
     y_values = []
-    h = (domain[1] - domain[0])/iterations
+    h = (domain[1] - domain[0]) / iterations
 
     xi = first_value[0]
-    y_values.append([xi,first_value[1]])
+    y_values.append([xi, first_value[1]])
     for i in range(iterations):
-        yi = y_values[i][1] + h* function(xi, y_values[i][1])
-        y_values.append([xi+h,yi])
+        yi = y_values[i][1] + h * function(xi, y_values[i][1])
+        y_values.append([xi + h, yi])
         xi += h
-    
+
     return y_values
 
-g = lambda x, y: x+y    #Function
-start = [0,1]           #[x, f(x)] f' = g
-n = 5                   #Number of Iterations
-x = [0,1]               #Domain, [0,1] -> between 0 and 1
+
+g = lambda x, y: -x+y+2  # Function
+start = [0, 2]  # [x, f(x)] f' = g
+n = 10  # Number of Iterations
+x = [0, 1]  # Domain, [1,2] -> between 1 and 2
 print(euler_method(g, start, n, x))
