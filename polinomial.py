@@ -2,7 +2,15 @@ from seidel import seidel_method
 
 def matrix_mult(A, B):
     """
-    Fiquei com preguiça de escrever a descrição
+    Multiplies two matrices A and B using standard matrix multiplication.
+
+    Args:
+        A: A list of lists representing matrix A (m x n).
+        B: A list of lists representing matrix B (n x p).
+
+    Returns:
+        A list of lists representing the product matrix C (m x p),
+        where each entry C[i][j] = sum(A[i][k] * B[k][j] for k in range(n)).
     """
     C = []
     for row in A:
@@ -14,7 +22,16 @@ def matrix_mult(A, B):
 
 def polinomial(point_list : list[list[float]], degree) -> callable:
     """
-    Fiquei com preguiça de escrever a descrição
+    Computes a polynomial regression model of a specified degree for a set of
+    data points and returns the resulting polynomial as a function.
+
+    Args:
+        point_list: A list of points, each given as [x, y].
+        degree: The degree of the polynomial to fit.
+
+    Returns:
+        A callable representing the polynomial function f(x) that evaluates
+        the fitted polynomial at any given value of x.
     """
     matrix_x = []
     matrix_x_transposed = []

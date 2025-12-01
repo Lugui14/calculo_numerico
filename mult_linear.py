@@ -2,7 +2,15 @@ from seidel import seidel_method
 
 def matrix_mult(A, B):
     """
-    Fiquei com preguiça de escrever a descrição
+    Multiplies two matrices A and B using standard matrix multiplication.
+
+    Args:
+        A: A list of lists representing matrix A (m x n).
+        B: A list of lists representing matrix B (n x p).
+
+    Returns:
+        A list of lists representing the product matrix C (m x p),
+        where each entry C[i][j] = sum(A[i][k] * B[k][j] for k in range(n)).
     """
     C = []
     for row in A:
@@ -14,7 +22,17 @@ def matrix_mult(A, B):
 
 def mult_linear(point_list : list[list[float]]) -> callable:
     """
-    Fiquei com preguiça de escrever a descrição
+    Computes the multivariate linear regression model for a set of data points
+    using the Normal Equation (XᵀX · b = Xᵀy), and returns the resulting 
+    linear function as a closure.
+
+    Args:
+        point_list: A list of lists where each inner list contains the feature
+            values followed by the corresponding output value.
+
+    Returns:
+        A callable representing the regression function f(*args) that evaluates
+        the fitted linear model at any given input.
     """
     matrix_x = []
     matrix_x_transposed = []
