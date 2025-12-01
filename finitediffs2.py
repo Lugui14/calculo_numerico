@@ -9,7 +9,25 @@ def finite_diffs_method(
     iterations: int,
     domain: tuple[float, float],
 ) -> list[tuple[float, float]]:
-    """ """
+    """
+    Solves a equation using the finite differences method (differential method). You need to calculate nome initial values to start the process.
+
+     gama*y(i+1) + beta*yi + alfa*y(i-1) = F(xi)
+     This values can be found by evalueting the starting function with
+     y'(xi) = ( y(i+1) - yi ) / h   or   ( y(i+1) - y(i-1) ) / 2h
+     y"(xi) = ( y(i+1) - 2yi + y(i-1) ) / h²
+
+     Args:
+         f: list[callable]: List of functions [F(xi), alfa(xi), beta(xi), gama(xi)]
+         first_value: tuple[float, float]: Initial condition (x0, y0)
+         last_value: tuple[float, float]: Final condition (xn, yn) (used when it is PVC)
+         first_derivative: float: Initial derivative y'(x0) (used when it is PVI)
+         iterations: int: Number of iterations
+         domain: tuple[float, float]: The domain of the solution (start, end)
+
+     Returns:
+         list[tuple[float, float]]: List of points (xi, yi) that approximate the solutions of the equation.
+    """
     l = []
     h = (domain[1] - domain[0]) / iterations
 
@@ -30,15 +48,15 @@ def finite_diffs_method(
         return l
 
     matrix_ = []
-    for i in range(iterations-1):
+    for i in range(iterations - 1):
         aux = []
         xi = first_value[0] + (i + 1) * h
-        
+
         alfa = f[1](xi, h)
         beta = f[2](xi, h)
         gama = f[3](xi, h)
-        
-        for j in range(iterations-1):
+
+        for j in range(iterations - 1):
             if j == i:
                 aux.append(beta)
             elif j == i - 1:
@@ -51,7 +69,7 @@ def finite_diffs_method(
 
     # Build right side vector
     b = []
-    for i in range(iterations-1):
+    for i in range(iterations - 1):
         xi = first_value[0] + (i + 1) * h
         fi_value = f[0](xi, h)
 
@@ -76,11 +94,6 @@ def finite_diffs_method(
     return result
 
 
-# gama*y(i+1) + beta*yi + alfa*y(i-1) = F(xi)
-# This values can be found by evalueting the starting function with
-#   y'(xi) = ( y(i+1) - yi ) / h   or   ( y(i+1) - y(i-1) ) / 2h
-#   y"(xi) = ( y(i+1) - 2yi + y(i-1) ) / h²
-
 # Ex1, PVI
 alfa = lambda x, h: 1
 beta = lambda x, h: -2 - 2 * h + h * h
@@ -101,10 +114,10 @@ beta = lambda x, h: -2 + h * h
 gama = lambda x, h: 1 + h
 fi = lambda x, h: h * h * x
 
-function_list = [fi,alfa,beta,gama]
-first_value = [0,2]
-last_value = [1,0]
-first_derivative = None #Not known
+function_list = [fi, alfa, beta, gama]
+first_value = [0, 2]
+last_value = [1, 0]
+first_derivative = None  # Not known
 n = 4
 domain = [0, 1]
 print(finite_diffs_method(function_list, first_value, last_value, first_derivative, n, domain))
